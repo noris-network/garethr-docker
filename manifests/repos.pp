@@ -25,7 +25,6 @@ class docker::repos {
           key               => {
             id              => $package_key,
             source          => $key_source },
-          require           => [ Package['debian-keyring'], Package['debian-archive-keyring'] ],
           include           => {
             src             => false },
         }
