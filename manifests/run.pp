@@ -323,7 +323,7 @@ define docker::run(
     }
     else {
       file { $initscript:
-        ensure  => present,
+        ensure  => 'file',
         content => template($init_template),
         owner   => 'root',
         group   => $docker_group,
