@@ -56,7 +56,7 @@ class docker::params {
   $manage_package                    = true
   $package_source                    = undef
   $manage_kernel                     = true
-  $package_name_default              = 'docker-engine'
+  $package_name_default              = 'docker-ce'
   $service_name_default              = 'docker'
   $docker_command_default            = 'docker'
   $docker_group_default              = 'docker'
@@ -79,7 +79,10 @@ class docker::params {
     'Debian' : {
       case $::operatingsystem {
         'Ubuntu' : {
-          $package_release = "ubuntu-${::lsbdistcodename}"
+          $package_release = "${::lsbdistcodename}"
+          $package_source_location = 'http://download.docker.com/linux/ubuntu'
+          $package_key_source = 'https://download.docker.com/linux/ubuntu/gpg'
+          $package_key = '9DC858229FC7DD38854AE2D88D81803C0EBFCD88'
           if (versioncmp($::operatingsystemrelease, '15.04') >= 0) {
             $service_provider        = 'systemd'
             $storage_config          = '/etc/default/docker-storage'
@@ -98,7 +101,10 @@ class docker::params {
           }
         }
         default: {
-          $package_release = "debian-${::lsbdistcodename}"
+          $package_release = "${::lsbdistcodename}"
+          $package_source_location = 'http://download.docker.com/linux/debian'
+          $package_key_source = 'https://download.docker.com/linux/debian/gpg'
+          $package_key = '9DC858229FC7DD38854AE2D88D81803C0EBFCD88'
           if (versioncmp($::operatingsystemmajrelease, '8') >= 0) {
             $service_provider           = 'systemd'
             $storage_config             = '/etc/default/docker-storage'
@@ -123,7 +129,7 @@ class docker::params {
       $service_name = $service_name_default
       $docker_command = $docker_command_default
       $docker_group = $docker_group_default
-      $package_repos = 'main'
+      $package_repos = 'stable'
       $use_upstream_package_source = true
       $pin_upstream_package_source = true
       $apt_source_pin_level = 10
@@ -135,9 +141,6 @@ class docker::params {
       $package_cs_source_location = 'http://packages.docker.com/1.9/apt/repo'
       $package_cs_key_source = 'https://packages.docker.com/1.9/apt/gpg'
       $package_cs_key = '0xee6d536cf7dc86e2d7d56f59a178ac6c6238f52e'
-      $package_source_location = 'http://apt.dockerproject.org/repo'
-      $package_key_source = 'https://apt.dockerproject.org/gpg'
-      $package_key = '58118E89F3A912897C070ADBF76221572C52609D'
 
       if ($::operatingsystem == 'Debian' and versioncmp($::operatingsystemmajrelease, '8') >= 0) or
         ($::operatingsystem == 'Ubuntu' and versioncmp($::operatingsystemrelease, '15.04') >= 0) {
