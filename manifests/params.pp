@@ -135,8 +135,8 @@ class docker::params {
       $package_cs_source_location = 'http://packages.docker.com/1.9/apt/repo'
       $package_cs_key_source = 'https://packages.docker.com/1.9/apt/gpg'
       $package_cs_key = '0xee6d536cf7dc86e2d7d56f59a178ac6c6238f52e'
-      $package_source_location = 'http://apt.dockerproject.org/repo'
-      $package_key_source = 'https://apt.dockerproject.org/gpg'
+      $package_source_location = 'http://mirror.noris.net/docker-1.x/xenial'
+      $package_key_source = 'http://mirror.noris.net/docker-1.x/gpg'
       $package_key = '58118E89F3A912897C070ADBF76221572C52609D'
 
       if ($::operatingsystem == 'Debian' and versioncmp($::operatingsystemmajrelease, '8') >= 0) or
